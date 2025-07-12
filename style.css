@@ -160,13 +160,13 @@ body {
     color: #555; /* Slightly darker grey */
     font-size: 1.4em; /* Larger subtitle */
     margin-bottom: 5px;
-    font-family: 'Handlee', cursive; /* Fun font */
+    font-family: 'Arial', sans-serif; /* Fun font */
 }
 
 .grade-info {
     color: #777;
     font-size: 1.1em;
-    font-family: 'Handlee', cursive;
+    font-family: 'Arial', sans-serif, cursive;
 }
 
 .progress-bar {
