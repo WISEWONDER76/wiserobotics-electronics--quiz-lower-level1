@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Comic Sans MS', cursive, sans-serif; /* Kid-friendly font */
+    font-family: 'Arial', sans-serif; /* Changed from Comic Sans MS */
     background: linear-gradient(135deg, #FFD700 0%, #FF6B6B 100%); /* Brighter, fun gradient */
     min-height: 100vh;
     display: flex;
@@ -97,7 +97,6 @@ body {
     position: relative;
     z-index: 1;
 
-    /* --- Add/Modify these lines --- */
     min-height: 500px; /* Give it a reasonable minimum height */
     max-height: 90vh; /* Allow it to take up to 90% of viewport height */
     overflow-y: auto;  /* Add vertical scrollbar if content overflows */
@@ -121,9 +120,11 @@ body {
     max-height: 200px; /* Limit height for topic list if it's very long */
     overflow-y: auto; /* Add scroll for topics if needed */
     margin: 20px auto; /* Center the topic list horizontally */
-    width: 90%; /* Give it a specific width if it expands too much */
+    width: 90%; /* Give it a specific width if it's very long */
 }
-}
+
+/* Fixed the extra closing curly brace '}' here that was causing a syntax error */
+
 
 .quiz-container:hover {
     transform: translateY(-8px) scale(1.02); /* More pronounced hover */
@@ -134,7 +135,7 @@ body {
 }
 
 .logo {
-    font-family: 'Bubblegum Sans', cursive; /* Fun font for logo */
+    font-family: 'Arial Black', sans-serif; /* Changed from Bubblegum Sans */
     font-size: 3em; /* Larger logo text */
     font-weight: bold;
     background: linear-gradient(45deg, #FF6B6B, #FFD700); /* Fun gradient */
@@ -160,13 +161,13 @@ body {
     color: #555; /* Slightly darker grey */
     font-size: 1.4em; /* Larger subtitle */
     margin-bottom: 5px;
-    font-family: 'Arial', sans-serif; /* Fun font */
+    font-family: 'Arial', sans-serif; /* Changed from Handlee */
 }
 
 .grade-info {
     color: #777;
     font-size: 1.1em;
-    font-family: 'Arial', sans-serif, cursive;
+    font-family: 'Arial', sans-serif; /* Changed from Handlee */
 }
 
 .progress-bar {
@@ -221,6 +222,7 @@ body {
     color: #333;
     font-weight: bold;
     box-shadow: 0 5px 10px rgba(0,0,0,0.08);
+    font-family: 'Arial', sans-serif; /* Ensure this is also standard */
 }
 
 .option:hover {
@@ -341,7 +343,7 @@ body {
     margin-bottom: 18px;
     text-align: center;
     font-size: 1.5em;
-    font-family: 'Bubblegum Sans', cursive;
+    font-family: 'Arial', sans-serif; /* Changed from Bubblegum Sans */
 }
 
 .topic-list ul {
@@ -382,7 +384,7 @@ body {
     color: white;
     display: inline-block;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    font-family: 'Bubblegum Sans', cursive;
+    font-family: 'Arial', sans-serif; /* Changed from Bubblegum Sans */
 }
 
 .badge.gold {
@@ -406,7 +408,7 @@ body {
     width: 80%;
     max-width: 350px;
     text-align: center;
-    font-family: 'Handlee', cursive;
+    font-family: 'Arial', sans-serif; /* Changed from Handlee */
 }
 
 .music-controls {
