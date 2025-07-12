@@ -1,0 +1,559 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Kid-friendly font */
+    background: linear-gradient(135deg, #FFD700 0%, #FF6B6B 100%); /* Brighter, fun gradient */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden; /* Hide overflowing emojis */
+}
+
+/* --- Animated Emoji Background --- */
+.emoji-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0; /* Behind quiz container */
+}
+
+.emoji-background span {
+    position: absolute;
+    font-size: 3em; /* Larger emojis */
+    opacity: 0.6;
+    animation: moveEmoji 15s infinite linear; /* Animation applied */
+    pointer-events: none; /* Allows clicks through emojis to elements behind them */
+}
+
+.emoji-background span:nth-child(1) { top: 10%; left: 10%; animation-duration: 12s; animation-delay: 0s; }
+.emoji-background span:nth-child(2) { top: 20%; left: 20%; animation-duration: 15s; animation-delay: 2s; }
+.emoji-background span:nth-child(3) { top: 30%; left: 30%; animation-duration: 10s; animation-delay: 4s; }
+.emoji-background span:nth-child(4) { top: 40%; left: 40%; animation-duration: 13s; animation-delay: 6s; }
+.emoji-background span:nth-child(5) { top: 50%; left: 50%; animation-duration: 16s; animation-delay: 8s; }
+.emoji-background span:nth-child(6) { top: 60%; left: 60%; animation-duration: 11s; animation-delay: 1s; }
+.emoji-background span:nth-child(7) { top: 70%; left: 70%; animation-duration: 14s; animation-delay: 3s; }
+.emoji-background span:nth-child(8) { top: 80%; left: 80%; animation-duration: 9s; animation-delay: 5s; }
+.emoji-background span:nth-child(9) { top: 90%; left: 90%; animation-duration: 17s; animation-delay: 7s; }
+.emoji-background span:nth-child(10) { top: 5%; left: 70%; animation-duration: 10s; animation-delay: 9s; }
+.emoji-background span:nth-child(11) { top: 15%; left: 85%; animation-duration: 13s; animation-delay: 0.5s; }
+.emoji-background span:nth-child(12) { top: 25%; left: 5%; animation-duration: 16s; animation-delay: 2.5s; }
+.emoji-background span:nth-child(13) { top: 35%; left: 95%; animation-duration: 11s; animation-delay: 4.5s; }
+.emoji-background span:nth-child(14) { top: 45%; left: 15%; animation-duration: 14s; animation-delay: 6.5s; }
+.emoji-background span:nth-child(15) { top: 55%; left: 75%; animation-duration: 9s; animation-delay: 8.5s; }
+.emoji-background span:nth-child(16) { top: 65%; left: 5%; animation-duration: 12s; animation-delay: 10.5s; }
+.emoji-background span:nth-child(17) { top: 75%; left: 25%; animation-duration: 15s; animation-delay: 1.5s; }
+.emoji-background span:nth-child(18) { top: 85%; left: 45%; animation-duration: 10s; animation-delay: 3.5s; }
+.emoji-background span:nth-child(19) { top: 95%; left: 65%; animation-duration: 13s; animation-delay: 5.5s; }
+.emoji-background span:nth-child(20) { top: 0%; left: 40%; animation-duration: 16s; animation-delay: 7.5s; }
+.emoji-background span:nth-child(21) { top: 20%; left: 0%; animation-duration: 11s; animation-delay: 9.5s; }
+.emoji-background span:nth-child(22) { top: 80%; left: 10%; animation-duration: 14s; animation-delay: 11.5s; }
+.emoji-background span:nth-child(23) { top: 50%; left: 90%; animation-duration: 9s; animation-delay: 1.2s; }
+.emoji-background span:nth-child(24) { top: 30%; left: 10%; animation-duration: 12s; animation-delay: 4.2s; }
+.emoji-background span:nth-child(25) { top: 70%; left: 40%; animation-duration: 15s; animation-delay: 6.2s; }
+
+@keyframes moveEmoji {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translate(calc(20vw - 100px), calc(20vh - 100px)) rotate(45deg);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(calc(50vw - 200px), calc(50vh - 200px)) rotate(90deg);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translate(calc(80vw - 100px), calc(80vh - 100px)) rotate(135deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(calc(100vw - 50px), calc(100vh - 50px)) rotate(180deg);
+        opacity: 0.6;
+    }
+}
+/* --- End Animated Emoji Background --- */
+
+
+.quiz-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    max-width: 650px;
+    width: 100%;
+    text-align: center;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+
+    /* --- Add/Modify these lines --- */
+    min-height: 500px; /* Give it a reasonable minimum height */
+    max-height: 90vh; /* Allow it to take up to 90% of viewport height */
+    overflow-y: auto;  /* Add vertical scrollbar if content overflows */
+    display: flex;     /* Use flexbox for internal layout control */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Push header to top, button to bottom */
+}
+
+/* For the start-screen within the quiz-container, let it grow */
+.start-screen {
+    flex-grow: 1; /* Allow start screen to take available space */
+    display: flex; /* Make start screen a flex container too */
+    flex-direction: column; /* Stack its content vertically */
+    justify-content: center; /* Center its content vertically */
+    align-items: center; /* Center its content horizontally */
+    text-align: center;
+}
+
+.topic-list {
+    /* Existing styles... */
+    max-height: 200px; /* Limit height for topic list if it's very long */
+    overflow-y: auto; /* Add scroll for topics if needed */
+    margin: 20px auto; /* Center the topic list horizontally */
+    width: 90%; /* Give it a specific width if it expands too much */
+}
+}
+
+.quiz-container:hover {
+    transform: translateY(-8px) scale(1.02); /* More pronounced hover */
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-family: 'Bubblegum Sans', cursive; /* Fun font for logo */
+    font-size: 3em; /* Larger logo text */
+    font-weight: bold;
+    background: linear-gradient(45deg, #FF6B6B, #FFD700); /* Fun gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+/* --- Logo Styling --- */
+.wiserobotics-logo {
+    position: absolute;
+    top: 20px;          
+    right: 20px;        
+    width: 100px;       /* Adjusted size for kid's app */
+    height: auto;       
+    z-index: 15;        
+    border-radius: 50%; 
+    box-shadow: 0 0 15px rgba(0,0,0,0.15); /* Stronger shadow */
+}
+/* --- End Logo Styling --- */
+
+.subtitle {
+    color: #555; /* Slightly darker grey */
+    font-size: 1.4em; /* Larger subtitle */
+    margin-bottom: 5px;
+    font-family: 'Handlee', cursive; /* Fun font */
+}
+
+.grade-info {
+    color: #777;
+    font-size: 1.1em;
+    font-family: 'Handlee', cursive;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 25px; /* Thicker progress bar */
+    background: #e0e0e0;
+    border-radius: 12px; /* More rounded */
+    margin-bottom: 25px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #66BB6A, #FFD700); /* Green to Yellow for progress */
+    width: 0%;
+    transition: width 0.4s ease-out; /* Smoother transition */
+    border-radius: 12px;
+}
+
+.question-number {
+    color: #444;
+    font-size: 1.2em;
+    margin-bottom: 18px;
+    font-weight: bold;
+}
+
+.question {
+    font-size: 1.8em; /* Larger question text */
+    color: #333;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    font-family: 'Bubblegum Sans', cursive; /* Fun font */
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 18px; /* More space between options */
+    margin-bottom: 35px;
+}
+
+.option {
+    padding: 18px 25px; /* Larger padding */
+    background: #FFECB3; /* Light yellow background */
+    border: 3px solid #FFCC80; /* Orange border */
+    border-radius: 20px; /* More rounded options */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.4em; /* Larger option text */
+    text-align: center; /* Center align options for simplicity */
+    color: #333;
+    font-weight: bold;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.08);
+}
+
+.option:hover {
+    background: #FFD700; /* Gold on hover */
+    transform: translateY(-3px) scale(1.02); /* Lift and grow slightly */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.option.selected {
+    background: #FFA726; /* Deeper orange when selected */
+    color: white;
+    border-color: #FB8C00;
+    transform: scale(1.02);
+}
+
+.option.correct {
+    background: #66BB6A; /* Green for correct */
+    color: white;
+    border-color: #4CAF50;
+    transform: scale(1.05); /* Pop out more */
+}
+
+.option.incorrect {
+    background: #EF5350; /* Red for incorrect */
+    color: white;
+    border-color: #F44336;
+    transform: scale(1.05); /* Pop out more */
+}
+
+.btn {
+    padding: 15px 40px; /* Larger buttons */
+    background: linear-gradient(45deg, #66BB6A, #43A047); /* Green button */
+    color: white;
+    border: none;
+    border-radius: 30px; /* More rounded */
+    font-size: 1.3em; /* Larger font */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 12px; /* More margin */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #cccccc;
+    box-shadow: none;
+    transform: none;
+}
+
+.score {
+    font-size: 1.6em; /* Larger score */
+    color: #444;
+    margin: 25px 0;
+    font-weight: bold;
+}
+
+.feedback {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.1em;
+}
+
+.feedback.correct {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.feedback.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.final-score {
+    font-size: 2.5em; /* Larger final score */
+    font-weight: bold;
+    margin: 25px 0;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.excellent { color: #28a745; }
+.good { color: #ffc107; }
+.needs-improvement { color: #dc3545; }
+
+.start-screen {
+    text-align: center;
+}
+
+.start-btn {
+    font-size: 1.5em; /* Larger start button */
+    padding: 18px 50px;
+    margin-top: 30px;
+    background: linear-gradient(45deg, #FF6B6B, #EE5C5C); /* Red-orange start button */
+}
+
+.topic-list {
+    background: #fff3e0; /* Lighter background for topics */
+    padding: 25px;
+    border-radius: 20px;
+    margin: 25px 0;
+    text-align: left;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.topic-list h3 {
+    color: #333;
+    margin-bottom: 18px;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+.topic-list ul {
+    list-style: none;
+    columns: 1; /* Simpler for kids: one column */
+    column-gap: 20px;
+}
+
+.topic-list li {
+    margin-bottom: 10px;
+    padding-left: 25px; /* More padding */
+    position: relative;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.topic-list li:before {
+    content: "🌟"; /* Funnier bullet point */
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+}
+
+.badge-container {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.badge {
+    font-size: 2em; /* Larger badge */
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 15px;
+    margin-top: 12px;
+    color: white;
+    display: inline-block;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+.badge.gold {
+    background: linear-gradient(45deg, #FFD700, #DAA520); /* Gold color */
+}
+
+.badge.silver {
+    background: linear-gradient(45deg, #C0C0C0, #A8A8A8); /* Silver color */
+}
+
+.badge.bronze {
+    background: linear-gradient(45deg, #CD7F32, #B87333); /* Bronze color */
+}
+
+.student-name-input {
+    margin-bottom: 25px;
+    padding: 12px; /* Larger input */
+    border: 2px solid #FFCC80; /* Matching border */
+    border-radius: 10px;
+    font-size: 1.2em;
+    width: 80%;
+    max-width: 350px;
+    text-align: center;
+    font-family: 'Handlee', cursive;
+}
+
+.music-controls {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.4); /* More transparent */
+    padding: 10px 18px;
+    border-radius: 15px;
+    backdrop-filter: blur(8px); /* More blur */
+    color: #333; /* Darker text */
+    z-index: 10; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.music-controls label {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.music-controls input[type="range"] {
+    width: 90px; /* Slightly wider */
+    -webkit-appearance: none;
+    height: 6px; /* Thicker slider */
+    background: #FFCC80; /* Orange track */
+    outline: none;
+    opacity: 0.8;
+    transition: opacity .2s;
+    border-radius: 5px;
+}
+
+.music-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; /* Larger thumb */
+    height: 20px; /* Larger thumb */
+    border-radius: 50%;
+    background: #FF6B6B; /* Red thumb */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.music-controls input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #FF6B6B;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* Mobile devices (max-width 600px) */
+@media (max-width: 600px) {
+    body {
+        padding: 10px; 
+    }
+
+    .quiz-container {
+        padding: 20px; 
+        border-radius: 18px; 
+    }
+    
+    .logo {
+        font-size: 2.2em; 
+    }
+    
+    .subtitle {
+        font-size: 1.1em; 
+    }
+
+    .grade-info {
+        font-size: 0.9em;
+    }
+
+    .question-number {
+        font-size: 1.1em;
+    }
+
+    .question {
+        font-size: 1.5em; 
+        margin-bottom: 25px;
+    }
+
+    .options {
+        gap: 12px; 
+    }
+
+    .option {
+        padding: 15px 20px; 
+        font-size: 1.1em; 
+        border-radius: 15px; 
+    }
+
+    .btn {
+        padding: 12px 30px; 
+        font-size: 1.1em;
+        margin: 8px; 
+        border-radius: 25px;
+    }
+
+    .start-btn {
+        font-size: 1.3em; 
+        padding: 15px 40px;
+    }
+
+    .student-name-input {
+        width: 90%; 
+        font-size: 1.1em;
+        padding: 10px;
+    }
+
+    .topic-list {
+        padding: 20px;
+    }
+
+    .topic-list h3 {
+        font-size: 1.2em;
+    }
+
+    .topic-list ul {
+        columns: 1; 
+    }
+
+    .music-controls {
+        top: 15px; 
+        right: 15px;
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .music-controls label {
+        font-size: 0.9em;
+    }
+
+    .music-controls input[type="range"] {
+        width: 70px; 
+    }
+
+    /* Adjust logo position/size for smaller screens */
+    .wiserobotics-logo {
+        width: 70px; /* Smaller logo on mobile */
+        top: 15px;
+        right: 15px;
+    }
+}
