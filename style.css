@@ -195,11 +195,11 @@ body {
 }
 
 .question {
-    font-size: 1.8em; /* Larger question text */
+    font-size: 1.8em; 
     color: #333;
     margin-bottom: 30px;
     line-height: 1.5;
-    font-family: 'Bubblegum Sans', cursive; /* Fun font */
+    font-family: 'Arial', sans-serif; /* Changed from 'Bubblegum Sans', cursive; */
 }
 
 .options {
